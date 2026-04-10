@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { FighterConfig, WeaponType } from '../types';
 import { FIGHTER_COLORS } from '../physics/constants';
+import { getWeaponOptions } from '../physics/weaponRegistry';
 
 interface SetupScreenProps {
   onStart: (configs: FighterConfig[]) => void;
 }
 
-const WEAPON_OPTIONS: { value: WeaponType; label: string }[] = [
-  { value: 'unarmed', label: 'Unarmed' },
-  { value: 'sword', label: 'Sword' },
-  { value: 'shield', label: 'Shield' },
-  { value: 'bow', label: 'Bow' },
-];
+const WEAPON_OPTIONS = getWeaponOptions();
 
 export function SetupScreen({ onStart }: SetupScreenProps) {
   const [fighterCount, setFighterCount] = useState(2);

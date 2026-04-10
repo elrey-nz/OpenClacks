@@ -1,5 +1,6 @@
 import { FighterConfig } from '../types';
-import { FIGHTER_COLORS, WEAPON_COLORS } from '../physics/constants';
+import { FIGHTER_COLORS } from '../physics/constants';
+import { getWeaponDefinition } from '../physics/weaponRegistry';
 
 interface GameOverModalProps {
   winnerId: string;
@@ -11,7 +12,8 @@ export function GameOverModal({ winnerId, fighterConfigs, onPlayAgain }: GameOve
   const winnerIndex = fighterConfigs.findIndex((c) => c.id === winnerId);
   const winner = fighterConfigs[winnerIndex];
   const winnerColor = FIGHTER_COLORS[winnerIndex % FIGHTER_COLORS.length];
-  const weaponColor = WEAPON_COLORS[winner?.weapon ?? 'unarmed'];
+  const weaponDef = getWeaponDefinition(winner?.weapon ?? 'unarmed');
+  const weaponColor = weaponDef?.color ?? '#888';
 
   return (
     <div className="modal-overlay">

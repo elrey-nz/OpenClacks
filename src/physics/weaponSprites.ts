@@ -1,151 +1,146 @@
-// Pixel art sprites for weapons (16x16 grids)
-// Each sprite is defined as a 2D array of color indices
-
 type SpriteColor = string | null;
 
 export interface WeaponSprite {
   width: number;
   height: number;
   pixels: (SpriteColor)[][];
-  // Pivot point offset from center (in pixels) - where the weapon rotates around
   pivotX?: number;
   pivotY?: number;
 }
 
-// Color palettes for each weapon
-const COLORS = {
+const C = {
   sword: {
-    blade: '#C0C0C0',
-    bladeLight: '#E8E8E8',
-    bladeDark: '#808080',
-    hilt: '#8B4513',
-    hiltDark: '#5D2E0C',
-    hiltLight: '#A0522D',
-    gem: '#FF0000',
-    gemLight: '#FF6666',
+    blade: '#B8C4D0',
+    bladeLight: '#DCE4EC',
+    bladeDark: '#7A8A9A',
+    bladeEdge: '#5A6A7A',
+    guard: '#DAA520',
+    guardLight: '#FFD700',
+    guardDark: '#B8860B',
+    grip: '#6B3410',
+    gripLight: '#8B4513',
+    gripDark: '#4A2208',
+    gem: '#E02020',
+    gemLight: '#FF6060',
+    gemDark: '#A01010',
   },
   shield: {
-    face: '#4169E1',
-    faceLight: '#6495ED',
-    faceDark: '#2F4F8F',
-    border: '#DAA520',
-    borderLight: '#FFD700',
-    borderDark: '#B8860B',
+    face: '#3B6FBF',
+    faceLight: '#5A8FDF',
+    faceDark: '#2A4F8F',
+    rim: '#DAA520',
+    rimLight: '#FFD700',
+    rimDark: '#B8860B',
     emblem: '#FFD700',
     emblemLight: '#FFEC8B',
+    boss: '#C0C0C0',
+    bossLight: '#E0E0E0',
   },
   bow: {
-    wood: '#8B4513',
-    woodLight: '#A0522D',
-    woodDark: '#5D2E0C',
-    string: '#F5F5DC',
-    grip: '#2F1810',
+    wood: '#7A4015',
+    woodLight: '#A05820',
+    woodDark: '#502A0A',
+    string: '#E8E0D0',
+    grip: '#3A1A08',
+    gripWrap: '#5A3018',
   },
   arrow: {
-    shaft: '#8B4513',
-    head: '#C0C0C0',
-    headLight: '#E8E8E8',
-    headDark: '#808080',
-    fletchRed: '#FF0000',
-    fletchWhite: '#FFFFFF',
+    shaft: '#9A6830',
+    shaftLight: '#B88040',
+    head: '#C0C8D0',
+    headLight: '#E0E8F0',
+    headDark: '#808890',
+    fletch: '#CC2020',
+    fletchLight: '#FF5050',
   },
 };
 
-// Sword sprite (16x16) - diagonal blade pointing up-right
-// Pivot is at the hilt (bottom-left area of the sprite)
 export const SWORD_SPRITE: WeaponSprite = {
   width: 16,
   height: 16,
-  pivotX: -3, // Offset from center towards the hilt
-  pivotY: 4,  // Offset from center towards the hilt
+  pivotX: -3,
+  pivotY: 4,
   pixels: [
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.sword.bladeLight, null],
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.sword.bladeLight, COLORS.sword.blade, null],
-    [null, null, null, null, null, null, null, null, null, null, null, null, COLORS.sword.bladeLight, COLORS.sword.blade, COLORS.sword.bladeDark, null],
-    [null, null, null, null, null, null, null, null, null, null, null, COLORS.sword.bladeLight, COLORS.sword.blade, COLORS.sword.bladeDark, null, null],
-    [null, null, null, null, null, null, null, null, null, null, COLORS.sword.bladeLight, COLORS.sword.blade, COLORS.sword.bladeDark, null, null, null],
-    [null, null, null, null, null, null, null, null, null, COLORS.sword.bladeLight, COLORS.sword.blade, COLORS.sword.bladeDark, null, null, null, null],
-    [null, null, null, null, null, null, null, null, COLORS.sword.bladeLight, COLORS.sword.blade, COLORS.sword.bladeDark, null, null, null, null, null],
-    [null, null, null, null, null, null, null, COLORS.sword.bladeLight, COLORS.sword.blade, COLORS.sword.bladeDark, null, null, null, null, null, null],
-    [null, null, null, null, null, null, COLORS.sword.gemLight, COLORS.sword.gem, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, COLORS.sword.hiltLight, COLORS.sword.hilt, COLORS.sword.hiltDark, null, null, null, null, null, null, null],
-    [null, null, null, null, null, COLORS.sword.hiltLight, COLORS.sword.hilt, COLORS.sword.hilt, COLORS.sword.hiltDark, null, null, null, null, null, null, null],
-    [null, null, null, null, COLORS.sword.hiltLight, COLORS.sword.hilt, COLORS.sword.hilt, COLORS.sword.hilt, COLORS.sword.hiltDark, null, null, null, null, null, null, null],
-    [null, null, null, COLORS.sword.hiltLight, COLORS.sword.hilt, COLORS.sword.hilt, COLORS.sword.hilt, COLORS.sword.hiltDark, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, C.sword.bladeLight, null],
+    [null, null, null, null, null, null, null, null, null, null, null, null, null, C.sword.bladeLight, C.sword.blade, null],
+    [null, null, null, null, null, null, null, null, null, null, null, null, C.sword.bladeLight, C.sword.blade, C.sword.bladeDark, null],
+    [null, null, null, null, null, null, null, null, null, null, null, C.sword.bladeLight, C.sword.blade, C.sword.bladeDark, null, null],
+    [null, null, null, null, null, null, null, null, null, null, C.sword.bladeLight, C.sword.blade, C.sword.bladeDark, null, null, null],
+    [null, null, null, null, null, null, null, null, null, C.sword.bladeLight, C.sword.blade, C.sword.bladeDark, null, null, null, null],
+    [null, null, null, null, null, null, null, null, C.sword.bladeLight, C.sword.blade, C.sword.bladeDark, null, null, null, null, null],
+    [null, null, null, null, null, null, null, C.sword.bladeLight, C.sword.blade, C.sword.bladeDark, null, null, null, null, null, null],
+    [null, null, null, null, null, null, C.sword.guardDark, C.sword.guard, C.sword.guard, C.sword.guard, C.sword.guardDark, null, null, null, null, null],
+    [null, null, null, null, C.sword.guardDark, C.sword.guardLight, C.sword.guard, C.sword.guard, C.sword.guard, C.sword.guard, C.sword.guardLight, C.sword.guardDark, null, null, null, null],
+    [null, null, null, null, null, null, C.sword.gripDark, C.sword.grip, C.sword.gripLight, C.sword.gripDark, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, C.sword.grip, C.sword.gripLight, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, C.sword.gripDark, C.sword.grip, C.sword.gripLight, C.sword.gripDark, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, C.sword.gemDark, C.sword.gem, C.sword.gemLight, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
   ],
 };
 
-// Shield sprite (16x16) - classic heater shield shape
-// Pivot is at center of shield
 export const SHIELD_SPRITE: WeaponSprite = {
   width: 16,
   height: 16,
-  pivotX: 0, // Centered
-  pivotY: 0, // Centered
+  pivotX: 0,
+  pivotY: 0,
   pixels: [
-    [null, null, null, null, null, null, COLORS.shield.borderLight, COLORS.shield.borderLight, COLORS.shield.borderLight, COLORS.shield.borderLight, COLORS.shield.borderLight, COLORS.shield.borderLight, null, null, null, null],
-    [null, null, null, null, null, COLORS.shield.borderLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.border, null, null, null],
-    [null, null, null, null, COLORS.shield.borderLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.face, COLORS.shield.border, null, null, null],
-    [null, null, null, COLORS.shield.borderLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.emblem, COLORS.shield.emblemLight, COLORS.shield.emblem, COLORS.shield.faceLight, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.border, null, null],
-    [null, null, COLORS.shield.borderLight, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.emblem, COLORS.shield.emblem, COLORS.shield.emblemLight, COLORS.shield.emblem, COLORS.shield.faceLight, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.borderDark, null, null],
-    [null, null, COLORS.shield.border, COLORS.shield.faceLight, COLORS.shield.faceLight, COLORS.shield.emblem, COLORS.shield.emblem, COLORS.shield.emblemLight, COLORS.shield.emblem, COLORS.shield.faceLight, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.borderDark, null, null],
-    [null, null, COLORS.shield.border, COLORS.shield.face, COLORS.shield.faceLight, COLORS.shield.emblem, COLORS.shield.emblem, COLORS.shield.emblemLight, COLORS.shield.emblem, COLORS.shield.faceLight, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.borderDark, null, null],
-    [null, null, COLORS.shield.border, COLORS.shield.face, COLORS.shield.face, COLORS.shield.emblem, COLORS.shield.emblem, COLORS.shield.emblemLight, COLORS.shield.emblem, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.faceDark, COLORS.shield.borderDark, null, null],
-    [null, null, null, COLORS.shield.border, COLORS.shield.face, COLORS.shield.faceLight, COLORS.shield.emblem, COLORS.shield.emblemLight, COLORS.shield.emblem, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.borderDark, null, null, null],
-    [null, null, null, COLORS.shield.border, COLORS.shield.face, COLORS.shield.face, COLORS.shield.faceLight, COLORS.shield.emblem, COLORS.shield.faceLight, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.borderDark, null, null, null],
-    [null, null, null, null, COLORS.shield.border, COLORS.shield.face, COLORS.shield.face, COLORS.shield.faceLight, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.faceDark, COLORS.shield.borderDark, null, null, null],
-    [null, null, null, null, COLORS.shield.border, COLORS.shield.faceDark, COLORS.shield.face, COLORS.shield.face, COLORS.shield.face, COLORS.shield.faceDark, COLORS.shield.borderDark, COLORS.shield.borderDark, null, null, null],
-    [null, null, null, null, null, COLORS.shield.border, COLORS.shield.faceDark, COLORS.shield.faceDark, COLORS.shield.faceDark, COLORS.shield.faceDark, COLORS.shield.borderDark, null, null, null, null],
-    [null, null, null, null, null, null, COLORS.shield.borderDark, COLORS.shield.borderDark, COLORS.shield.borderDark, COLORS.shield.borderDark, null, null, null, null, null],
+    [null, null, null, null, null, C.shield.rimLight, C.shield.rimLight, C.shield.rimLight, C.shield.rimLight, C.shield.rimLight, C.shield.rimLight, null, null, null, null, null],
+    [null, null, null, null, C.shield.rimLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.rim, C.shield.rimDark, null, null, null, null],
+    [null, null, null, C.shield.rimLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.face, C.shield.rim, C.shield.rimDark, null, null, null],
+    [null, null, C.shield.rimLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.faceLight, C.shield.face, C.shield.face, C.shield.faceDark, C.shield.rimDark, null, null, null],
+    [null, null, C.shield.rim, C.shield.faceLight, C.shield.faceLight, C.shield.emblem, C.shield.emblemLight, C.shield.emblem, C.shield.faceLight, C.shield.face, C.shield.face, C.shield.faceDark, C.shield.rimDark, null, null, null],
+    [null, null, C.shield.rim, C.shield.faceLight, C.shield.emblem, C.shield.emblemLight, C.shield.bossLight, C.shield.emblemLight, C.shield.emblem, C.shield.face, C.shield.faceDark, C.shield.faceDark, C.shield.rimDark, null, null, null],
+    [null, null, C.shield.rim, C.shield.face, C.shield.emblemLight, C.shield.bossLight, C.shield.boss, C.shield.emblemLight, C.shield.emblem, C.shield.face, C.shield.faceDark, C.shield.faceDark, C.shield.rimDark, null, null, null],
+    [null, null, C.shield.rim, C.shield.face, C.shield.emblem, C.shield.emblemLight, C.shield.emblemLight, C.shield.emblem, C.shield.emblem, C.shield.face, C.shield.faceDark, C.shield.faceDark, C.shield.rimDark, null, null, null],
+    [null, null, null, C.shield.rim, C.shield.face, C.shield.emblem, C.shield.emblem, C.shield.emblem, C.shield.emblem, C.shield.face, C.shield.faceDark, C.shield.rimDark, null, null, null, null],
+    [null, null, null, C.shield.rim, C.shield.face, C.shield.face, C.shield.emblem, C.shield.emblem, C.shield.face, C.shield.faceDark, C.shield.faceDark, C.shield.rimDark, null, null, null, null],
+    [null, null, null, null, C.shield.rim, C.shield.face, C.shield.face, C.shield.face, C.shield.face, C.shield.faceDark, C.shield.rimDark, C.shield.rimDark, null, null, null, null],
+    [null, null, null, null, C.shield.rim, C.shield.faceDark, C.shield.face, C.shield.face, C.shield.faceDark, C.shield.faceDark, C.shield.rimDark, null, null, null, null, null],
+    [null, null, null, null, null, C.shield.rim, C.shield.faceDark, C.shield.faceDark, C.shield.faceDark, C.shield.rimDark, C.shield.rimDark, null, null, null, null, null],
+    [null, null, null, null, null, null, C.shield.rimDark, C.shield.rimDark, C.shield.rimDark, C.shield.rimDark, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
   ],
 };
 
-// Bow sprite (16x16) - curved bow with string (wood on left, string on right)
-// Pivot is at the center/grip
 export const BOW_SPRITE: WeaponSprite = {
   width: 16,
   height: 16,
-  pivotX: 0, // Centered horizontally
-  pivotY: 0, // Centered vertically (grip is in middle)
+  pivotX: 0,
+  pivotY: 0,
   pixels: [
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.bow.string],
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.bow.woodLight, COLORS.bow.string],
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.string],
-    [null, null, null, null, null, null, null, null, null, null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, COLORS.bow.string],
-    [null, null, null, null, null, null, null, null, null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, null, COLORS.bow.string],
-    [null, null, null, null, null, null, null, null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, null, null, COLORS.bow.string],
-    [null, null, null, null, null, null, null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, COLORS.bow.string],
-    [null, null, null, null, null, null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, null, COLORS.bow.string],
-    [null, null, null, null, null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, null, null, COLORS.bow.string],
-    [null, null, null, null, null, null, COLORS.bow.grip, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, null, null, null, COLORS.bow.string],
-    [null, null, null, null, null, COLORS.bow.grip, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, null, null, null, null, COLORS.bow.string],
-    [null, null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, null, null, null, null, null, COLORS.bow.string],
-    [null, null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, null, null, null, null, null, null, COLORS.bow.string],
-    [null, null, COLORS.bow.woodLight, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, null, null, null, null, null, null, null, COLORS.bow.string],
-    [null, COLORS.bow.wood, COLORS.bow.woodDark, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.bow.string],
-    [COLORS.bow.woodLight, COLORS.bow.wood, null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.bow.string],
+    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, C.bow.string],
+    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, C.bow.woodLight, C.bow.string],
+    [null, null, null, null, null, null, null, null, null, null, null, null, null, C.bow.woodLight, C.bow.wood, C.bow.string],
+    [null, null, null, null, null, null, null, null, null, null, null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, C.bow.string],
+    [null, null, null, null, null, null, null, null, null, null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, C.bow.string],
+    [null, null, null, null, null, null, null, null, null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, null, C.bow.string],
+    [null, null, null, null, null, null, null, null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, null, null, C.bow.string],
+    [null, null, null, null, null, null, null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, null, null, null, C.bow.string],
+    [null, null, null, null, null, null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, null, null, null, null, C.bow.string],
+    [null, null, null, null, null, null, C.bow.grip, C.bow.wood, C.bow.woodDark, null, null, null, null, null, null, C.bow.string],
+    [null, null, null, null, null, C.bow.gripWrap, C.bow.wood, C.bow.woodDark, null, null, null, null, null, null, null, C.bow.string],
+    [null, null, null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, null, null, null, null, null, null, null, C.bow.string],
+    [null, null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, null, null, null, null, null, null, null, null, C.bow.string],
+    [null, null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, null, null, null, null, null, null, null, null, null, C.bow.string],
+    [null, C.bow.woodLight, C.bow.wood, C.bow.woodDark, null, null, null, null, null, null, null, null, null, null, null, C.bow.string],
+    [C.bow.woodLight, C.bow.wood, null, null, null, null, null, null, null, null, null, null, null, null, null, C.bow.string],
   ],
 };
 
-// Arrow sprite for rendering arrows
 export const ARROW_SPRITE = {
-  width: 20,
-  height: 6,
-  pivotX: 0, // Centered
-  pivotY: 0, // Centered
+  width: 14,
+  height: 5,
+  pivotX: 0,
+  pivotY: 0,
   pixels: [
-    // Arrow pointing right
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.arrow.headLight, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.arrow.headLight, COLORS.arrow.head, COLORS.arrow.headDark, null, null, null, null],
-    [COLORS.arrow.fletchWhite, COLORS.arrow.fletchRed, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.shaft, COLORS.arrow.headLight, COLORS.arrow.head, COLORS.arrow.headDark, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.arrow.headLight, COLORS.arrow.head, COLORS.arrow.headDark, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, COLORS.arrow.headLight, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null, null, null, null, C.arrow.headLight, null, null],
+    [null, null, null, null, null, null, null, null, null, null, C.arrow.headLight, C.arrow.head, C.arrow.headDark, null],
+    [C.arrow.fletchLight, C.arrow.fletch, C.arrow.shaft, C.arrow.shaftLight, C.arrow.shaft, C.arrow.shaft, C.arrow.shaft, C.arrow.shaft, C.arrow.shaftLight, C.arrow.shaft, C.arrow.headLight, C.arrow.head, C.arrow.headDark, null],
+    [null, null, null, null, null, null, null, null, null, null, C.arrow.headLight, C.arrow.head, C.arrow.headDark, null],
+    [null, null, null, null, null, null, null, null, null, null, null, C.arrow.headLight, null, null],
   ],
 };
 
@@ -155,20 +150,13 @@ export const WEAPON_SPRITES: Record<string, WeaponSprite> = {
   bow: BOW_SPRITE,
 };
 
-// Rotation offsets for weapons to point outward
-// The sprite is rotated by outwardAngle + offset
-// Sprites are designed with their "forward" direction:
-// - Sword: points up-right diagonal (45 deg), needs -45 deg to point right
-// - Shield: centered, no offset needed
-// - Bow: string left, wood right (vertical), needs -90 deg to point right
 export const WEAPON_ROTATION_OFFSETS: Record<string, number> = {
-  sword: -Math.PI / 4,  // -45 degrees - makes sword point outward
-  shield: 0,            // No offset needed for shield
-  bow: -Math.PI / 2,    // -90 degrees - makes bow point outward
-  arrow: Math.PI,       // 180 degrees - flip arrow to point in direction of travel
+  sword: -Math.PI / 4,
+  shield: 0,
+  bow: -Math.PI / 2,
+  arrow: Math.PI,
 };
 
-// Helper function to draw a sprite on canvas
 export function drawSprite(
   ctx: CanvasRenderingContext2D,
   sprite: WeaponSprite,
@@ -177,7 +165,6 @@ export function drawSprite(
   scale: number = 1,
 ): void {
   const pixelSize = scale;
-  // Use pivot offset if available, otherwise center the sprite
   const pivotOffsetX = (sprite.pivotX ?? 0) * pixelSize;
   const pivotOffsetY = (sprite.pivotY ?? 0) * pixelSize;
   const offsetX = x - (sprite.width * pixelSize) / 2 - pivotOffsetX;
@@ -199,7 +186,6 @@ export function drawSprite(
   }
 }
 
-// Draw sprite rotated around its center
 export function drawSpriteRotated(
   ctx: CanvasRenderingContext2D,
   sprite: WeaponSprite,

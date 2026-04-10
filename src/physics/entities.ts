@@ -9,10 +9,11 @@ import {
   DEFAULT_HP,
   ARENA_WIDTH,
   ARENA_HEIGHT,
-  WEAPON_SPRITE_SIZE,
 } from './constants';
+import { getWeaponDefinition, hasAttachedWeapon } from './weaponRegistry';
+import { createWeaponRuntimeState } from './weaponSystem';
 
-const { Bodies, Constraint, Composite } = Matter;
+const { Bodies, Constraint, Composite, Body } = Matter;
 
 function randomVelocity(): { x: number; y: number } {
   const speed = 4 + Math.random() * 4;
@@ -20,16 +21,80 @@ function randomVelocity(): { x: number; y: number } {
   return { x: Math.cos(angle) * speed, y: Math.sin(angle) * speed };
 }
 
+interface WeaponBodyResult {
+  wb: Matter.Body;
+  c: Matter.Constraint;
+}
+
+function createWeaponBody(
+  body: Matter.Body,
+  configId: string,
+  def: ReturnType<typeof getWeaponDefinition>,
+  effectiveRadius: number,
+  offsetAngle: number,
+): WeaponBodyResult | null {
+  if (!def || !def.hasBody) return null;
+
+  const bw = def.bodyWidth;
+  const bh = def.bodyHeight;
+  const isCircle = def.bodyShape === 'circle';
+  const spawnDist = effectiveRadius + (isCircle ? bw / 2 : bh / 2) + 2;
+
+  const x = body.position.x + Math.cos(offsetAngle) * spawnDist;
+  const y = body.position.y + Math.sin(offsetAngle) * spawnDist;
+
+  const wb = isCircle
+    ? Bodies.circle(x, y, bw / 2, {
+        restitution: SPHERE_RESTITUTION,
+        friction: 0,
+        density: def.bodyDensity,
+        label: `weapon-${configId}`,
+        isSensor: def.bodyIsSensor,
+        plugin: {
+          fighterId: configId,
+          isWeapon: true,
+          weaponType: def.id,
+        },
+      })
+    : Bodies.rectangle(x, y, bw, bh, {
+        restitution: SPHERE_RESTITUTION,
+        friction: 0,
+        density: def.bodyDensity,
+        label: `weapon-${configId}`,
+        isSensor: def.bodyIsSensor,
+        plugin: {
+          fighterId: configId,
+          isWeapon: true,
+          weaponType: def.id,
+        },
+      });
+
+  const c = Constraint.create({
+    bodyA: body,
+    pointA: { x: Math.cos(offsetAngle) * effectiveRadius, y: Math.sin(offsetAngle) * effectiveRadius },
+    bodyB: wb,
+    pointB: { x: 0, y: 0 },
+    stiffness: def.bodyStiffness,
+    length: 0,
+  });
+
+  return { wb, c };
+}
+
 export function createFighter(
   world: Matter.World,
   config: FighterConfig,
   colorIndex: number,
 ): FighterState {
-  const margin = SPHERE_RADIUS * 4;
+  const def = getWeaponDefinition(config.weapon);
+  const radiusMultiplier = def?.bodyRadiusMultiplier ?? 1;
+  const effectiveRadius = SPHERE_RADIUS * radiusMultiplier;
+  const margin = effectiveRadius * 4;
+
   const x = margin + Math.random() * (ARENA_WIDTH - margin * 2);
   const y = margin + Math.random() * (ARENA_HEIGHT - margin * 2);
 
-  const body = Bodies.circle(x, y, SPHERE_RADIUS, {
+  const body = Bodies.circle(x, y, effectiveRadius, {
     restitution: SPHERE_RESTITUTION,
     friction: SPHERE_FRICTION,
     density: SPHERE_DENSITY,
@@ -38,88 +103,22 @@ export function createFighter(
   });
 
   const velocity = randomVelocity();
-  Matter.Body.setVelocity(body, velocity);
+  Body.setVelocity(body, velocity);
 
-  body.plugin = { ...(body.plugin ?? {}), fighterId: config.id, colorIndex };
+  body.plugin = { fighterId: config.id, colorIndex };
 
   let weaponBody: Matter.Body | undefined;
+  let weaponBodyB: Matter.Body | undefined;
   let constraint: Matter.Constraint | undefined;
+  let constraintB: Matter.Constraint | undefined;
 
-  const ws = WEAPON_SPRITE_SIZE;
-
-  if (config.weapon === 'sword') {
-    weaponBody = Bodies.rectangle(
-      x + SPHERE_RADIUS + ws / 2, y, ws, ws,
-      {
-        restitution: SPHERE_RESTITUTION,
-        friction: 0,
-        density: 0.002,
-        label: `weapon-${config.id}`,
-        isSensor: true,
-        plugin: { fighterId: config.id, isWeapon: true, weaponType: 'sword' },
-      },
-    );
-
-    constraint = Constraint.create({
-      bodyA: body,
-      pointA: { x: SPHERE_RADIUS, y: 0 },
-      bodyB: weaponBody,
-      pointB: { x: -ws / 2, y: 0 },
-      stiffness: 0.9,
-      length: 0,
-    });
-
-    Composite.add(world, [weaponBody, constraint]);
-  }
-
-  if (config.weapon === 'shield') {
-    weaponBody = Bodies.rectangle(
-      x + SPHERE_RADIUS + 4, y, ws, ws,
-      {
-        restitution: SPHERE_RESTITUTION,
-        friction: 0,
-        density: 0.02,
-        label: `weapon-${config.id}`,
-        isSensor: true,
-        plugin: { fighterId: config.id, isWeapon: true, weaponType: 'shield' },
-      },
-    );
-
-    constraint = Constraint.create({
-      bodyA: body,
-      pointA: { x: SPHERE_RADIUS, y: 0 },
-      bodyB: weaponBody,
-      pointB: { x: -ws / 2, y: 0 },
-      stiffness: 0.95,
-      length: 0,
-    });
-
-    Composite.add(world, [weaponBody, constraint]);
-  }
-
-  if (config.weapon === 'bow') {
-    weaponBody = Bodies.rectangle(
-      x + SPHERE_RADIUS + ws / 2, y, ws, ws,
-      {
-        restitution: SPHERE_RESTITUTION,
-        friction: 0,
-        density: 0.001,
-        label: `weapon-${config.id}`,
-        isSensor: true,
-        plugin: { fighterId: config.id, isWeapon: true, weaponType: 'bow' },
-      },
-    );
-
-    constraint = Constraint.create({
-      bodyA: body,
-      pointA: { x: SPHERE_RADIUS, y: 0 },
-      bodyB: weaponBody,
-      pointB: { x: -ws / 2, y: 0 },
-      stiffness: 0.9,
-      length: 0,
-    });
-
-    Composite.add(world, [weaponBody, constraint]);
+  if (def && hasAttachedWeapon(def)) {
+    const primary = createWeaponBody(body, config.id, def, effectiveRadius, 0);
+    if (primary) {
+      weaponBody = primary.wb;
+      constraint = primary.c;
+      Composite.add(world, [weaponBody, constraint]);
+    }
   }
 
   Composite.add(world, body);
@@ -131,49 +130,21 @@ export function createFighter(
     maxHp: DEFAULT_HP,
     body,
     weaponBody,
+    weaponBodyB,
     constraint,
+    constraintB,
     alive: true,
+    activeDOTs: [],
+    weaponState: createWeaponRuntimeState(),
   };
 }
 
 export function removeFighter(world: Matter.World, fighter: FighterState): void {
   const toRemove: Matter.Body[] = [fighter.body];
   if (fighter.weaponBody) toRemove.push(fighter.weaponBody);
+  if (fighter.weaponBodyB) toRemove.push(fighter.weaponBodyB);
 
   Composite.remove(world, toRemove);
-  if (fighter.constraint) {
-    Composite.remove(world, fighter.constraint);
-  }
-}
-
-export function fireArrow(
-  world: Matter.World,
-  fighter: FighterState,
-): Matter.Body {
-  const pos = fighter.body.position;
-  const angle = Math.random() * Math.PI * 2;
-  const speed = 10;
-
-  const arrow = Bodies.rectangle(
-    pos.x + Math.cos(angle) * (SPHERE_RADIUS + 15),
-    pos.y + Math.sin(angle) * (SPHERE_RADIUS + 15),
-    16, 4,
-    {
-      restitution: 0.3,
-      friction: 0,
-      density: 0.001,
-      frictionAir: 0.005,
-      angle,
-      label: `arrow-${fighter.id}`,
-      plugin: { fighterId: fighter.id, isArrow: true },
-    },
-  );
-
-  Matter.Body.setVelocity(arrow, {
-    x: Math.cos(angle) * speed,
-    y: Math.sin(angle) * speed,
-  });
-
-  Composite.add(world, arrow);
-  return arrow;
+  if (fighter.constraint) Composite.remove(world, fighter.constraint);
+  if (fighter.constraintB) Composite.remove(world, fighter.constraintB);
 }

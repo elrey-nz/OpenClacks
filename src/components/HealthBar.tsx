@@ -2,9 +2,9 @@ export function HealthBar({
   x,
   y,
   hp,
-  maxHp,
+  maxHp: _maxHp,
   alive,
-  color,
+  color: _color,
 }: {
   x: number;
   y: number;
