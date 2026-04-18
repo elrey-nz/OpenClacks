@@ -1,3 +1,10 @@
+/**
+ * Torch — short rod with a flame particle effect.
+ *
+ * Mechanic: Each hit creates a flame entity near the target. Flames have a base lifetime
+ *           (e.g. 3s) and deal minor DPS in a small radius. Each hit increases flame lifetime by +1s.
+ * Super:    Flames have infinite lifetime and slowly move toward the nearest enemy.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { spawnFlame } from './WeaponUtils';
 import { SCALING } from '../constants';

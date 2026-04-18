@@ -1,3 +1,12 @@
+/**
+ * Hammer — large heavy rectangle attached to the ball.
+ *
+ * Mechanic: Each hit increases max rotation speed by +1. Damage scales with
+ *           rotation speed at impact. The hammer accelerates toward max rotation
+ *           and does not change direction when parrying.
+ * Super:    Rotation speed no longer resets after dealing damage; continuously
+ *           accelerates until it hits a maximum.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 
 const DEF: WeaponDef = {

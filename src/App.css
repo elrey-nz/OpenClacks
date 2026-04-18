@@ -292,3 +292,26 @@ body {
   transform: translate(3px, 3px);
   box-shadow: 0px 0px 0 #2C2C2C;
 }
+
+.super-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.super-mode-toggle input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #FFD700;
+  cursor: pointer;
+}
+
+.super-mode-label {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #FFD700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}

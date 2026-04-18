@@ -36,6 +36,7 @@ export function usePhysicsEngine(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
   fighterConfigs: FighterConfig[],
   isRunning: boolean,
+  superMode: boolean,
   onGameOver: (winnerId: string) => void,
 ): UsePhysicsEngineReturn {
   const engineRef = useRef<Matter.Engine | null>(null);
@@ -46,6 +47,8 @@ export function usePhysicsEngine(
   const onGameOverRef = useRef(onGameOver);
   const lastTimeRef = useRef<number>(0);
   const gameStateRef = useRef<WeaponGameState>(createWeaponGameState());
+  const superModeRef = useRef(superMode);
+  superModeRef.current = superMode;
 
   onGameOverRef.current = onGameOver;
 
@@ -100,6 +103,14 @@ export function usePhysicsEngine(
         if (speed > effectiveMaxSpeed) {
           const scale = effectiveMaxSpeed / speed;
           Body.setVelocity(fighter.body, { x: vel.x * scale, y: vel.y * scale });
+        }
+      }
+    }
+
+    if (superModeRef.current) {
+      for (const fighter of fighters) {
+        if (fighter.alive) {
+          fighter.weaponState.superActive = true;
         }
       }
     }

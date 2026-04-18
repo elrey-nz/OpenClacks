@@ -1,3 +1,11 @@
+/**
+ * Scepter — short rod with a glowing tip.
+ *
+ * Mechanic: Each hit increases lifesteal by +0.5 (heals that amount on hit).
+ *           Also heals nearby allies for a fraction (30%) of the lifesteal amount.
+ * Super:    Each hit spawns a healing box near the target that heals allies and the scepter
+ *           while they remain inside it. Heal/sec scales with accumulated lifesteal.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { spawnHealingBox } from './WeaponUtils';
 

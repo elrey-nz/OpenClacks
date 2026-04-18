@@ -1,3 +1,9 @@
+/**
+ * Spear — long, thin rectangle attached near the ball's center.
+ *
+ * Mechanic: Each hit increases length by +0.5 and damage by +0.5.
+ * Super:    Centered through the ball (attacks with both ends), 1.5x rotation speed.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 
 const DEF: WeaponDef = {

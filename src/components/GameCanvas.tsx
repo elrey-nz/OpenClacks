@@ -6,16 +6,18 @@ import { HealthBar } from './HealthBar';
 
 interface GameCanvasProps {
   fighterConfigs: FighterConfig[];
+  superMode: boolean;
   onGameOver: (winnerId: string) => void;
 }
 
-export function GameCanvas({ fighterConfigs, onGameOver }: GameCanvasProps) {
+export function GameCanvas({ fighterConfigs, superMode, onGameOver }: GameCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const { fighterSnapshots } = usePhysicsEngine(
     canvasRef,
     fighterConfigs,
     true,
+    superMode,
     onGameOver,
   );
 

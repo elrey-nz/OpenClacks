@@ -1,3 +1,10 @@
+/**
+ * Boomerang — curved body that detaches and returns. No attached weapon body.
+ *
+ * Mechanic: Every 3s, throws a boomerang in a wide arc. Returns to the ball after
+ *           a short time. Each hit increases boomerang damage by +2.
+ * Super:    Throw twice as fast (every 1.5s) with accumulated damage bonus.
+ */
 import { WeaponBehavior, WeaponDef, UpdateContext, NO_BODY_WEAPON, incrementCounter } from './WeaponBase';
 import { angleToNearest } from './WeaponUtils';
 import { WEAPON_CONSTANTS, SPHERE_RADIUS, SCALING } from '../constants';

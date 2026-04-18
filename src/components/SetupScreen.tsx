@@ -4,7 +4,7 @@ import { FIGHTER_COLORS } from '../physics/constants';
 import { getWeaponOptions } from '../physics/weaponRegistry';
 
 interface SetupScreenProps {
-  onStart: (configs: FighterConfig[]) => void;
+  onStart: (configs: FighterConfig[], superMode: boolean) => void;
 }
 
 const WEAPON_OPTIONS = getWeaponOptions();
@@ -12,6 +12,7 @@ const WEAPON_OPTIONS = getWeaponOptions();
 export function SetupScreen({ onStart }: SetupScreenProps) {
   const [fighterCount, setFighterCount] = useState(2);
   const [weapons, setWeapons] = useState<WeaponType[]>(['unarmed', 'unarmed']);
+  const [superMode, setSuperMode] = useState(false);
 
   const updateWeapon = (index: number, weapon: WeaponType) => {
     setWeapons((prev) => {
@@ -38,7 +39,7 @@ export function SetupScreen({ onStart }: SetupScreenProps) {
       id: `fighter-${i}`,
       weapon,
     }));
-    onStart(configs);
+    onStart(configs, superMode);
   };
 
   return (
@@ -78,6 +79,15 @@ export function SetupScreen({ onStart }: SetupScreenProps) {
           +
         </button>
       </div>
+
+      <label className="super-mode-toggle">
+        <input
+          type="checkbox"
+          checked={superMode}
+          onChange={(e) => setSuperMode(e.target.checked)}
+        />
+        <span className="super-mode-label">Super Mode</span>
+      </label>
 
       <button onClick={handleStart} className="btn-start">
         Start Match

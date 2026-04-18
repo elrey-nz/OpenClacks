@@ -1,3 +1,10 @@
+/**
+ * Scythe — curved blade attached to the ball.
+ *
+ * Mechanic: Each hit adds a permanent poison stack to the target.
+ *           Damage = base + (poisonStacks on target * DPS per stack).
+ * Super:    Second scythe blade attached on the opposite side (mirrored).
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF } from './WeaponBase';
 
 const DEF: WeaponDef = {

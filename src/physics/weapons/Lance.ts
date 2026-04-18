@@ -1,3 +1,12 @@
+/**
+ * Lance — very long, thin rectangle extending in front of the ball.
+ *
+ * Mechanic: Each hit adds +2 "joust damage". Every 3s the ball performs a joust:
+ *           temporarily invincible, burst of speed toward target, deals base + joust damage
+ *           with lower accuracy (wider aim variance). Ignores gravity during joust.
+ * Super:    Jousts only when facing almost directly toward an opponent (tight angular
+ *           tolerance), making jousts more accurate and reliable.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { SCALING } from '../constants';
 

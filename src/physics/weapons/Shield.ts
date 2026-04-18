@@ -1,3 +1,12 @@
+/**
+ * Shield — wide rectangle/arc in front of the ball. Passive weapon.
+ *
+ * Mechanic: Parries incoming projectiles/weapon hits (no damage taken, projectile destroyed).
+ *           Each parry increases shield width by +5%.
+ *           Parrying a unique weapon type temporarily copies a weaker version of that ability.
+ * Super:    Shield can be thrown like a boomerang — detaches, spins, returns after a short time.
+ *           Reduced frontal defense while shield is thrown.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 
 const DEF: WeaponDef = {

@@ -1,3 +1,10 @@
+/**
+ * Unarmed — no weapon body; only the ball itself.
+ *
+ * Mechanic: Each hit increases max speed by +1.
+ *           Damage = baseDamage + speedFactor * speed at impact.
+ * Super:    Ignores gravity and friction/damping — maintains momentum indefinitely.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, UpdateContext, NO_BODY_WEAPON, incrementCounter } from './WeaponBase';
 import Matter from 'matter-js';
 

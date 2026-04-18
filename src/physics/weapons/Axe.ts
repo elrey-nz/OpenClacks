@@ -1,3 +1,11 @@
+/**
+ * Axe — large thick blade attached to the ball.
+ *
+ * Mechanic: Each hit increases critical hit chance by +2%. On crit, bonus damage equals
+ *           the current crit chance percentage (e.g. 40% crit → +40 bonus damage).
+ * Super:    Crit chance still increases per hit, but crit damage is randomized every 2s
+ *           within a range (e.g. 20–100).
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { SCALING } from '../constants';
 

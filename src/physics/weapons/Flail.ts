@@ -1,3 +1,9 @@
+/**
+ * Flail — heavy ball on a short chain, attached via a constraint.
+ *
+ * Mechanic: Swings unpredictably as the ball moves. Each hit increases size and damage by +0.5.
+ * Super:    Not yet defined. Stub in place for future supers.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 
 const DEF: WeaponDef = {

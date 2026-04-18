@@ -1,3 +1,11 @@
+/**
+ * Grimoire — book-shaped body attached to the ball.
+ *
+ * Mechanic: Each hit spawns a minion that copies the target's weapon type and scaling.
+ *           Minions have their own HP, chase enemies, and attack. Each hit increases
+ *           minion max HP by +1. Minions share the weapon behavior of the copied opponent.
+ * Super:    Minions become invincible (cannot be killed), have infinite HP, and are smaller targets.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { spawnMinion } from './WeaponUtils';
 import { SCALING } from '../constants';

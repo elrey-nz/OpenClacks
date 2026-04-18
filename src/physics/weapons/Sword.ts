@@ -1,3 +1,9 @@
+/**
+ * Sword — rectangular blade attached via constraint.
+ *
+ * Mechanic: Each hit increases damage by +1 (additive).
+ * Super:    Rotates at 2 rotations/sec and deals double damage.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, UpdateContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import Matter from 'matter-js';
 

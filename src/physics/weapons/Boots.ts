@@ -1,3 +1,10 @@
+/**
+ * Boots — no weapon body; smaller collision radius than Unarmed.
+ *
+ * Mechanic: Like Unarmed but smaller hitbox. Each hit increases max speed by +1.
+ *           Damage scales with speed. Harder to hit but more nimble.
+ * Super:    None. Intentionally never has a super.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, NO_BODY_WEAPON, incrementCounter } from './WeaponBase';
 
 const DEF: WeaponDef = {

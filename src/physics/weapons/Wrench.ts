@@ -1,3 +1,10 @@
+/**
+ * Wrench — short thick rectangle attached to the ball.
+ *
+ * Mechanic: Each hit spawns a turret at the impact location. Turrets are static bodies
+ *           that periodically fire small bullets at the nearest enemy.
+ * Super:    Turrets have 3 barrels instead of 1, fire faster, and deal more damage.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF } from './WeaponBase';
 import { spawnTurret } from './WeaponUtils';
 import { SCALING } from '../constants';

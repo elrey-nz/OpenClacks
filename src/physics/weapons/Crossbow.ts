@@ -1,3 +1,10 @@
+/**
+ * Crossbow — crossbow-shaped body. Fires bolt projectiles.
+ *
+ * Mechanic: Shoots a single bolt every second. Each hit increments a bolt-damage counter
+ *           by +1; future bolts deal baseDamage + counter.
+ * Super:    Fires bolts ~2.44x faster (~2.44 bolts per second).
+ */
 import { WeaponBehavior, WeaponDef, UpdateContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { angleToNearest, createProjectileBody } from './WeaponUtils';
 import { WEAPON_CONSTANTS, SPHERE_RADIUS, SCALING } from '../constants';

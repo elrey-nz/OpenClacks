@@ -1,3 +1,10 @@
+/**
+ * Scroll — scroll-shaped body attached to the ball.
+ *
+ * Mechanic: Spawns letter projectiles that orbit around the ball. Each hit increases letter
+ *           spawn rate by +0.2 (more letters orbiting). Letters damage enemies on collision.
+ * Super:    Not yet defined. Stub in place for future supers.
+ */
 import { WeaponBehavior, WeaponDef, UpdateContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { SCALING } from '../constants';
 import { ActiveLetter } from '../../types';

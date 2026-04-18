@@ -1,3 +1,10 @@
+/**
+ * Bow — static bow shape (visual only), fires arrow projectiles.
+ *
+ * Mechanic: Starts with arrowCount=1. Each hit increments arrowCount by +1.
+ *           Periodically shoots arrowCount arrows toward opponents in a spread arc.
+ * Super:    Each burst fires 2x arrows at different angles.
+ */
 import { WeaponBehavior, WeaponDef, UpdateContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { angleToNearest, createProjectileBody } from './WeaponUtils';
 import { WEAPON_CONSTANTS, SPHERE_RADIUS } from '../constants';

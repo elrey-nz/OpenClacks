@@ -1,3 +1,9 @@
+/**
+ * Dagger — short rectangle attached to the ball.
+ *
+ * Mechanic: Each hit increases rotation speed by +0.1 rad/s (capped).
+ * Super:    Length multiplied by 5, keeping increased rotation speed.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 
 const DEF: WeaponDef = {

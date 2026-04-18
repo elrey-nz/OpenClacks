@@ -1,3 +1,10 @@
+/**
+ * Shuriken — small star-shaped projectile. No attached weapon body.
+ *
+ * Mechanic: Periodically throws a shuriken projectile. Each hit adds +1 bounce
+ *           (shurikens bounce off walls/enemies that many times before disappearing).
+ * Super:    Halved cooldown. Each hit grants +2 bounces instead of +1.
+ */
 import { WeaponBehavior, WeaponDef, UpdateContext, NO_BODY_WEAPON, incrementCounter } from './WeaponBase';
 import { angleToNearest, createProjectileBody } from './WeaponUtils';
 import { WEAPON_CONSTANTS, SPHERE_RADIUS } from '../constants';

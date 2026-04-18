@@ -1,3 +1,10 @@
+/**
+ * Flask — small circular projectile. No attached weapon body.
+ *
+ * Mechanic: Periodically throws a flask that shatters on impact, creating a circular
+ *           "spill" zone. Enemies inside take DPS. Each hit increases future spill DPS.
+ * Super:    Throw flasks 4x faster (cooldown reduced to 25% of base).
+ */
 import { WeaponBehavior, WeaponDef, UpdateContext, NO_BODY_WEAPON, incrementCounter } from './WeaponBase';
 import { angleToNearest, createProjectileBody } from './WeaponUtils';
 import { WEAPON_CONSTANTS, SPHERE_RADIUS, SCALING } from '../constants';

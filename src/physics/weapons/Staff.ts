@@ -1,3 +1,10 @@
+/**
+ * Staff — long rod with a glowing end. Fires fireball projectiles.
+ *
+ * Mechanic: Periodically fires a fireball. Each hit increases fireball damage and size by +0.5.
+ * Super:    Fires two fireballs in opposite directions (forward and backward),
+ *           both benefiting from accumulated damage/size.
+ */
 import { WeaponBehavior, WeaponDef, UpdateContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { angleToNearest, createProjectileBody } from './WeaponUtils';
 import { WEAPON_CONSTANTS, SPHERE_RADIUS } from '../constants';

@@ -1,3 +1,11 @@
+/**
+ * Katana — medium-length thin blade.
+ *
+ * Mechanic: Each hit/parry increments a "slash counter" by 1. On hit, the target takes
+ *           repeated tick damage (every 0.2s) until the number of ticks equals the slash
+ *           counter at the moment of impact. E.g. slash counter=5 → 5 ticks over 1.0s.
+ * Super:    Two additional katanas attached 120° apart, each applying the same slash mechanic.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import { addDotToTarget } from './WeaponUtils';
 

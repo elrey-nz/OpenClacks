@@ -9,9 +9,11 @@ export default function App() {
   const [phase, setPhase] = useState<GamePhase>('setup');
   const [fighterConfigs, setFighterConfigs] = useState<FighterConfig[]>([]);
   const [winnerId, setWinnerId] = useState<string | null>(null);
+  const [superMode, setSuperMode] = useState(false);
 
-  const handleStart = useCallback((configs: FighterConfig[]) => {
+  const handleStart = useCallback((configs: FighterConfig[], sm: boolean) => {
     setFighterConfigs(configs);
+    setSuperMode(sm);
     setWinnerId(null);
     setPhase('playing');
   }, []);
@@ -34,6 +36,7 @@ export default function App() {
       {phase === 'playing' && fighterConfigs.length > 0 && (
         <GameCanvas
           fighterConfigs={fighterConfigs}
+          superMode={superMode}
           onGameOver={handleGameOver}
         />
       )}
@@ -42,6 +45,7 @@ export default function App() {
         <>
           <GameCanvas
             fighterConfigs={fighterConfigs}
+            superMode={superMode}
             onGameOver={handleGameOver}
           />
           <GameOverModal

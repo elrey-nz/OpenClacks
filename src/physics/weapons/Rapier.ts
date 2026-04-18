@@ -1,3 +1,11 @@
+/**
+ * Rapier — long, thin thrusting sword.
+ *
+ * Mechanic: Has a lunge ability (base: 1 lunge per 2s). Each hit increases lunge rate by +0.2
+ *           (reduces cooldown) and lunge damage by +1. A lunge is a short, fast forward dash
+ *           dealing extra damage to the first target hit.
+ * Super:    Not yet defined. Stub in place for future supers.
+ */
 import { WeaponBehavior, WeaponDef, HitContext, UpdateContext, DEFAULT_DEF, incrementCounter } from './WeaponBase';
 import Matter from 'matter-js';
 
